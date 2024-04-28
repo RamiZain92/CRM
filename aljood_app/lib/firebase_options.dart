@@ -57,19 +57,20 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyByxuzYM-qV3vbSCGeHn4VhKuseiI7qQXM',
-    appId: '1:949885876375:android:0307bc20459d29a0cbd1d2',
-    messagingSenderId: '949885876375',
-    projectId: 'aljoodlaw-201e8',
-    storageBucket: 'aljoodlaw-201e8.appspot.com',
+    apiKey: 'AIzaSyCrTur7j7DMazy7V_3ol0L35tcvjXsohhk',
+    appId: '1:986360367651:android:28f48849688a6a42617f96',
+    messagingSenderId: '986360367651',
+    projectId: 'aljood-20490',
+    storageBucket: 'aljood-20490.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBSnsNjEwFEaOvQxU_pyHU-cM7aKzwzHso',
-    appId: '1:949885876375:ios:445cb43631553f93cbd1d2',
-    messagingSenderId: '949885876375',
-    projectId: 'aljoodlaw-201e8',
-    storageBucket: 'aljoodlaw-201e8.appspot.com',
+    apiKey: 'AIzaSyBXdouAhuzQsLmZsjdOgBd2mO3Kb-lykBY',
+    appId: '1:986360367651:ios:c69920c3f0614170617f96',
+    messagingSenderId: '986360367651',
+    projectId: 'aljood-20490',
+    storageBucket: 'aljood-20490.appspot.com',
     iosBundleId: 'com.flyweb.application.OneSignalNotificationServiceExtension',
   );
+
 }

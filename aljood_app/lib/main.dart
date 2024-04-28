@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,6 +9,7 @@ import 'package:flutter/services.dart';
 //import 'package:flutter_downloader/flutter_downloader.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flyweb/firebase_options.dart';
 import 'package:flyweb/i18n/AppLanguage.dart';
 import 'package:flyweb/i18n/i18n.dart';
 import 'package:flyweb/src/enum/connectivity_status.dart';
@@ -25,11 +28,14 @@ import 'package:flyweb/src/helpers/Deeplink.dart';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
 
+String? token = "";
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /*  Initialize AdMob */
   AdMobService.initialize();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   //flutter_downloader
   //await FlutterDownloader.initialize(debug: true);
@@ -146,6 +152,7 @@ class MyApp extends StatelessWidget {
   }
 
   Widget renderHome() {
+    requestPermission();
     if (settings == null)
       return InitialScreen();
     else {
@@ -154,5 +161,20 @@ class MyApp extends StatelessWidget {
           bytesImgSplashBase64: imgSplashBase64!,
           byteslogoSplashBase64: logoSplashBase64!);
     }
+  }
+
+  requestPermission() async {
+    token = await FirebaseMessaging.instance.getToken();
+    print("tokkk $token");
+    NotificationSettings setting =
+        await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
   }
 }

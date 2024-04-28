@@ -2,24 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>400659587054-b8dglahor1a0nor7k7t9jmsa1d33456k.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.400659587054-b8dglahor1a0nor7k7t9jmsa1d33456k</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>400659587054-4h3qtrlujbln4kf1s9g9ej2819ds8lrn.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCskIER1g5pqAkeWprtEgGeMV6KZ-SUaGU</string>
+	<string>AIzaSyBXdouAhuzQsLmZsjdOgBd2mO3Kb-lykBY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>400659587054</string>
+	<string>986360367651</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flyweb.application</string>
+	<string>com.flyweb.application.OneSignalNotificationServiceExtension</string>
 	<key>PROJECT_ID</key>
-	<string>flyweb-2020</string>
+	<string>aljood-20490</string>
 	<key>STORAGE_BUCKET</key>
-	<string>flyweb-2020.appspot.com</string>
+	<string>aljood-20490.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:400659587054:ios:62a5d508575e9aaba6f8ff</string>
-	<key>DATABASE_URL</key>
-	<string>https://flyweb-2020.firebaseio.com</string>
+	<string>1:986360367651:ios:c69920c3f0614170617f96</string>
 </dict>
 </plist>

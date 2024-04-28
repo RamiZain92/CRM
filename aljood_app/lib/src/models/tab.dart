@@ -1,3 +1,5 @@
+import 'package:flyweb/main.dart';
+
 class Tab {
   String? id = "";
   String? title = "";
@@ -42,7 +44,6 @@ class Tab {
       });
       translation = translate;
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -54,7 +55,8 @@ class Tab {
     //data['icon_base64'] = this.icon_base64;
 
     if (this.translationTab != null) {
-      data['translation'] = this.translationTab!.map((v) => v.toJson()).toList();
+      data['translation'] =
+          this.translationTab!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -73,7 +75,7 @@ class TranslationTab {
 
   TranslationTab.fromJson(dynamic json) {
     _title = json['title'];
-    _url = json['url'];
+    _url = "${json['url']}?token=$token";
     _lang = json['lang'];
   }
 
