@@ -43,7 +43,7 @@ class _ListOfUsersState extends State<ListOfUsers> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: userModel!=null ?AppBar(
         leading: IconButton(icon: Icon(Icons.logout), onPressed: () {
           token = null;
           CacheHelper.removeData(key: 'token');
@@ -61,7 +61,7 @@ class _ListOfUsersState extends State<ListOfUsers> with SingleTickerProviderStat
           if(userModel!.role != "support")
           IconButton(onPressed: (){
             navigateTo(context, FeaturesScreen());
-          }, icon: Icon(Icons.group)),
+          }, icon: Icon(Icons.featured_play_list_outlined)),
           IconButton(onPressed: (){
           showBottomModalSheetCustom(context: context,  options: [
             if(userModel!.role != "developer")
@@ -84,8 +84,8 @@ class _ListOfUsersState extends State<ListOfUsers> with SingleTickerProviderStat
             }),
           ]);
         }, icon: Icon(Icons.add))
-      ],),
-      body: Column(
+      ],):null,
+      body: userModel!=null ?Column(
         children: [
           if(userModel!=null)
           Padding(
@@ -295,7 +295,7 @@ class _ListOfUsersState extends State<ListOfUsers> with SingleTickerProviderStat
             ),
           ),
         ],
-      ),
+      ):Container(),
     );
   }
 }
