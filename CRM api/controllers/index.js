@@ -142,7 +142,7 @@ const updateAgent = catchAsync(async (req, res) => {
     if(!user || user.role === "developer" || user.role === "support") {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Unauthorized: the Admin only can do that');
     }
-    const updated = await User.findByIdAndUpdate({_id: req.query.id}, req.body).exec()
+    const updated = await Agent.findByIdAndUpdate({_id: req.query.id}, req.body).exec()
     res.send({
       code: HttpStatusCodes.OK,
       message: HttpResponseMessages.OK,
