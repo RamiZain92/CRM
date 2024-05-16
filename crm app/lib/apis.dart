@@ -2,13 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:signup_encrypt/Locale/cacheHelper.dart';
 import 'package:signup_encrypt/api.dart';
+import 'package:signup_encrypt/main.dart';
 import 'package:signup_encrypt/widgets.dart';
 
 import 'constants.dart';
 import 'model/user.dart';
 
 class Apis{
-  final String apiUrl = 'http://192.168.1.195:3000/api/';
+  final String apiUrl = 'http://192.168.0.106:3000/api/';
 
   Future<bool> login({required String username, required String password}) async {
     try {
@@ -156,12 +157,14 @@ class Apis{
     try {
       Response response = await Api.post(
         '$apiUrl/create-feature',
-        data:{
+        data: {
           "title": title,
           "description": desc
         },
       );
       if (response.statusCode == 201) {
+        print(response.data);
+        MyApp.socket!.emit('newFeature', response.data['data']);
         return true;
       } else {
         showToastError(response.data['message']);

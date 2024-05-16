@@ -4,6 +4,7 @@ const routes = require('./router');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const app = express();
+const socketFn = require('./socket');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
@@ -21,7 +22,6 @@ const port = process.env.PORT || '3000';
 let server;
 mongoose.set('strictQuery', true);
 
-console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL,
     {
       useNewUrlParser: true,
@@ -32,6 +32,7 @@ mongoose.connect(process.env.MONGO_URL,
      server = app.listen(port, () => {
       console.log(`Listening to port ${port}`);
     });
+    socketFn(server);
   }).catch((err) => {
     console.log(err);
 });

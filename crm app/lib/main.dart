@@ -4,6 +4,8 @@ import 'package:signup_encrypt/apis.dart';
 import 'package:signup_encrypt/constants.dart';
 import 'package:signup_encrypt/screens/list_users.dart';
 import 'package:signup_encrypt/widgets.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,7 @@ class MyApp extends StatefulWidget {
   final Widget startWidget;
   const MyApp({super.key, required this.startWidget});
   static final Apis apis = Apis();
+  static IO.Socket? socket;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -29,7 +32,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    MyApp.apis.getUser();
+    MyApp.apis.getUser().then((value) {
+      socketConnection(userModel!.role);
+    });
     super.initState();
   }
 
@@ -201,6 +206,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               if(loginKey.currentState!.validate()){
                                bool res = await api.login(username: userNameController.text, password: passwordController.text);
                                if(res){
+                                 socketConnection(userModel!.role);
                                  navigateTo(context, const ListOfUsers());
                                }
                               }
@@ -230,5 +236,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
 extension StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
+}
+
+Future<void> socketConnection(String typeUser) async {
+  try {
+    final query = {
+      'type': typeUser,
+    };
+    final socketOptions = IO.OptionBuilder()
+        .setTransports(['websocket'])
+        .setAuth({'token': token})
+        .setQuery(query)
+        .enableForceNew()
+        .build();
+
+    MyApp.socket = IO.io('http://192.168.0.106:3000', socketOptions);
+    final websocket = MyApp.socket!.connect();
+    websocket.onConnectError((data) => debugPrint('Error when connecting: $data'));
+    websocket.onError((data) => debugPrint('Connection error: $data'));
+    websocket.onConnectTimeout((data) => debugPrint('Connection timeout error: $data'));
+    MyApp.socket!.onConnect((_) {
+      debugPrint('Connected');
+      MyApp.socket!.on('newFeature', (data) {
+        print(data);
+        showToast("There are new feature please review");
+      });
+    });
+    MyApp.socket!.onDisconnect((_) {
+      debugPrint('Disconnected $socketOptions');
+    });
+  } catch (error) {
+    debugPrint('Error during socket connection: $error');
   }
 }

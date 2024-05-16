@@ -3,6 +3,7 @@ import 'package:signup_encrypt/main.dart';
 
 import '../constants.dart';
 import '../model/user.dart';
+import '../widgets.dart';
 
 class FeaturesScreen extends StatefulWidget {
   const FeaturesScreen({super.key});
@@ -13,6 +14,28 @@ class FeaturesScreen extends StatefulWidget {
 
 class _FeaturesScreenState extends State<FeaturesScreen> {
   List<FeatureModel> features = [];
+  @override
+  void initState() {
+    MyApp.socket!.on('newFeature', (data) {
+      print(data);
+      showToast("There are new feature please review");
+      setState(() {
+        features.add(FeatureModel.fromJson(data));
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    MyApp.socket!.off("newFeature");
+    MyApp.socket!.on('newFeature', (data) {
+      print(data);
+      showToast("There are new feature please review");
+    });
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

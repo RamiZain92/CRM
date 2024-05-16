@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signup_encrypt/constants.dart';
 import 'package:signup_encrypt/main.dart';
-import 'package:signup_encrypt/widgets.dart';
-
-import 'list_users.dart';
 
 // ignore: must_be_immutable
 class AddingFeature extends StatefulWidget {

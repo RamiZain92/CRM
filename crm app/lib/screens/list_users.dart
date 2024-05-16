@@ -41,11 +41,19 @@ class _ListOfUsersState extends State<ListOfUsers> with SingleTickerProviderStat
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    MyApp.socket!.off('newFeature');
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: userModel!=null ?AppBar(
         leading: IconButton(icon: Icon(Icons.logout), onPressed: () {
           token = null;
+          MyApp.socket!.dispose();
           CacheHelper.removeData(key: 'token');
           navigatePushAndRemoveUntil(context, SignUpScreen());
         },),
