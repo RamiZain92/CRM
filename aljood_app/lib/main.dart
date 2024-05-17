@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +17,20 @@ import 'package:flyweb/src/enum/connectivity_status.dart';
 import 'package:flyweb/src/helpers/AdMobService.dart';
 import 'package:flyweb/src/helpers/ConnectivityService.dart';
 import 'package:flyweb/src/helpers/SharedPref.dart';
+import 'package:flyweb/src/helpers/notification_service.dart';
 import 'package:flyweb/src/models/settings.dart';
 import 'package:flyweb/src/pages/InitialScreen.dart';
 import 'package:flyweb/src/pages/SplashScreen.dart';
 import 'package:flyweb/src/services/theme_manager.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flyweb/src/helpers/Deeplink.dart';
-import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String? token = "";
+String url = "https://www.google.com";
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -105,7 +107,7 @@ Future<Uint8List?> networkImageToBase64(String imageUrl) async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp(
       {Key? key,
       required this.appLanguage,
@@ -120,11 +122,36 @@ class MyApp extends StatelessWidget {
   final Uint8List? logoSplashBase64;
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    NotificationService.initialize();
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print(message);
+      launchUrl(Uri.parse(url));
+    });
+    AwesomeNotifications().setListeners(onActionReceivedMethod: NotificationService.onActionReceivedMethod);
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) async {
+        print(message);
+        NotificationService.createNotification(
+            id: Random().nextInt(10000),
+            title: message.notification!.title.toString(),
+            body: message.notification!.body.toString());
+      },
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     DeepLinkBloc _bloc = DeepLinkBloc();
 
     return ChangeNotifierProvider<AppLanguage>(
-      create: (_) => appLanguage,
+      create: (_) => widget.appLanguage,
       child: Consumer<AppLanguage>(builder: (context, provider, child) {
         return StreamProvider<ConnectivityStatus>(
             initialData: ConnectivityStatus.Wifi,
@@ -153,13 +180,13 @@ class MyApp extends StatelessWidget {
 
   Widget renderHome() {
     requestPermission();
-    if (settings == null)
+    if (widget.settings == null)
       return InitialScreen();
     else {
       return SplashScreen(
-          settings: settings!,
-          bytesImgSplashBase64: imgSplashBase64!,
-          byteslogoSplashBase64: logoSplashBase64!);
+          settings: widget.settings!,
+          bytesImgSplashBase64: widget.imgSplashBase64!,
+          byteslogoSplashBase64: widget.logoSplashBase64!);
     }
   }
 

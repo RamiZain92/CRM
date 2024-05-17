@@ -80,6 +80,7 @@ dependencies:
   global_configuration: ^2.0.0-nullsafety.1
   mobile_scanner: ^3.4.1
   app_links: ^3.4.5
+  awesome_notifications: ^0.8.2
 
   # MAP
   location: ^5.0.3 #^4.4.0
