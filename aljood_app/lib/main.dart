@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -133,7 +134,8 @@ class _MyAppState extends State<MyApp> {
       print(message);
       launchUrl(Uri.parse(url));
     });
-    AwesomeNotifications().setListeners(onActionReceivedMethod: NotificationService.onActionReceivedMethod);
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: NotificationService.onActionReceivedMethod);
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
         print(message);
