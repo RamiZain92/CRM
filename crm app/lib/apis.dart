@@ -221,6 +221,7 @@ class Apis{
       );
 
       if (response.statusCode == 200) {
+        MyApp.socket!.emit('updateFeature', response.data['data']);
         return true;
       } else {
         showToastError(response.data['message']);

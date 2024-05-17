@@ -177,7 +177,7 @@ class _AddingUserAgentState extends State<AddingUserAgent> {
                                   items: rolesAgent.map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(value.capitalize()),
+                                      child: Text(value.capitalizee()),
                                     );
                                   }).toList(),
                                   hint: Text('Select Role'),
@@ -237,7 +237,7 @@ class _AddingUserAgentState extends State<AddingUserAgent> {
                                     items: roles.map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
-                                        child: Text(value.capitalize()),
+                                        child: Text(value.capitalizee()),
                                       );
                                     }).toList(),
                                     hint: Text('Select Role'),

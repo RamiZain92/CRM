@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:signup_encrypt/Locale/cacheHelper.dart';
 import 'package:signup_encrypt/apis.dart';
 import 'package:signup_encrypt/constants.dart';
@@ -234,10 +235,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 }
 
 extension StringExtension on String {
-  String capitalize() {
+  String capitalizee() {
     return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
   }
 }
+
 
 Future<void> socketConnection(String typeUser) async {
   try {
@@ -261,6 +263,10 @@ Future<void> socketConnection(String typeUser) async {
       MyApp.socket!.on('newFeature', (data) {
         print(data);
         showToast("There are new feature please review");
+      });
+      MyApp.socket!.on('updateFeature', (data) {
+        print(data);
+        showToast("There are new update on features");
       });
     });
     MyApp.socket!.onDisconnect((_) {

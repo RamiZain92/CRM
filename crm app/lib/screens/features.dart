@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:signup_encrypt/main.dart';
-
 import '../constants.dart';
 import '../model/user.dart';
 import '../widgets.dart';
@@ -23,15 +23,24 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
         features.add(FeatureModel.fromJson(data));
       });
     });
+    MyApp.socket!.on('updateFeature', (data) {
+      print(data);
+      setState(() {});
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     MyApp.socket!.off("newFeature");
+    MyApp.socket!.off("updateFeature");
     MyApp.socket!.on('newFeature', (data) {
       print(data);
       showToast("There are new feature please review");
+    });
+    MyApp.socket!.on('updateFeature', (data) {
+      print(data);
+      showToast("There are new update on features");
     });
     super.dispose();
   }
@@ -107,7 +116,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                             Column(
                               children: [
                                 Text(
-                                  "Status: ${res.data![index].status.capitalize()}",
+                                  "Status: ${res.data![index].status.capitalizee()}",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
                                     fontSize: twelve,

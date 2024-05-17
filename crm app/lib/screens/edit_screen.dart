@@ -184,7 +184,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                     items: rolesAgent.map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
-                                        child: Text(value.capitalize()),
+                                        child: Text(value.capitalizee()),
                                       );
                                     }).toList(),
                                     hint: Text('Select Role'),
@@ -227,7 +227,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                     items: roles.map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
-                                        child: Text(value.capitalize()),
+                                        child: Text(value.capitalizee()),
                                       );
                                     }).toList(),
                                     hint: Text('Select Role'),

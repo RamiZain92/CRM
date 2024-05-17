@@ -99,7 +99,7 @@ class _ListOfUsersState extends State<ListOfUsers> with SingleTickerProviderStat
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(children: [
-              Expanded(child: Text("${userModel!.username.capitalize()} / ${userModel!.role.capitalize()}")),
+              Expanded(child: Text("${userModel!.username.capitalizee()} / ${userModel!.role.capitalizee()}")),
               Image.asset("images/user.png", height: fifty, width: fifty,)
             ]),
           ),
